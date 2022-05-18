@@ -5,6 +5,6 @@ test('Рассчитаем силу урона', () => {
   demon.attack = 100;
   demon.distance = 3;
   demon.stoned = true;
-  demon.getForce();
+
   expect(demon.attack).toBe(72);
 });

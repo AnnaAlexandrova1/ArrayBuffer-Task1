@@ -1,35 +1,38 @@
 import Character from './Character';
 
 export default class Force extends Character {
-  constructor(name) {
-    super(name);
+  constructor(name, type) {
+    super(name, type);
     this.distance = 1;
-    this.stoned = false;
-    this.attack = 10;
+    this.stonedI = false;
   }
 
-  getForce() {
+  get stoned() {
+    return this.stonedI;
+  }
+
+  set stoned(value) {
+    this.stonedI = value;
+  }
+
+  get attack() {
+    let attack = this.attackNew * (1 - (this.distance - 1) / 10);
     if (this.distance === 0) {
       return;
     }
-    this.attack -= (this.attack * (10 / 100) * (this.distance - 1));
     if (this.stoned === true) {
-      this.attack = Math.round(this.attack - (Math.log2(this.distance) * 5));
+      attack -= Math.log2(this.distance) * 5;
+    }
+    if (attack > 0) {
+      return Math.round(attack);
     }
     if (this.attack < 0) {
-      this.attack = 0;
+      return 0;
     }
   }
 
-  setAttack(value) {
-    this.attack = value;
-  }
 
-  getStoned() {
-    return this.stoned;
-  }
-
-  setStoned(value) {
-    this.stoned = value;
+  set attack(value) {
+    this.attackNew = value;
   }
 }
